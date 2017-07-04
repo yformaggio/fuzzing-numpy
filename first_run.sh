@@ -5,8 +5,8 @@ git submodule init
 git submodule update
 
 echo '>>> Set up config options'
-export CC="$(which clang) -g3 -fsanitize-coverage=trace-pc-guard -fsanitize=address,undefined"
-export CXX="$(which clang++) -g3 -fsanitize-coverage=trace-pc-guard -fsanitize=address,undefined"
+export CC="$(which clang) -g3 -fsanitize-coverage=trace-pc-guard -fsanitize=address"
+export CXX="$(which clang++) -g3 -fsanitize-coverage=trace-pc-guard -fsanitize=address"
 export LSAN_OPTIONS=exitcode=0
 
 echo '>>> Set up cpython'
