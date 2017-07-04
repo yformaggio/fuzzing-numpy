@@ -22,12 +22,12 @@ sudo apt-get update
 sudo apt-get install -y git make realpath screen zlib1g-dev libssl-dev
 sudo apt-get build-dep -y python3
 
-# Install clang 5.0
-sudo apt-get -y install clang-5.0 lldb-5.0 lld-5.0 libfuzzer-5.0-dev
+# Install clang 4.0
+sudo apt-get -y install clang-4.0 lldb-4.0 lld-4.0 libfuzzer-4.0-dev
 
 # Ensure that the clang and clang++ executables point correctly
-sudo update-alternatives --install /usr/bin/clang clang $(which clang-5.0) 100
-sudo update-alternatives --install /usr/bin/clang++ clang++ $(which clang++-5.0) 100
+sudo update-alternatives --install /usr/bin/clang clang $(which clang-4.0) 100
+sudo update-alternatives --install /usr/bin/clang++ clang++ $(which clang++-4.0) 100
 
 # To prevent git from complaining
 export LC_CTYPE=en_US.UTF-8
