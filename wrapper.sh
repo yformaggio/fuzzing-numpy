@@ -10,11 +10,13 @@ cd ..
 
 echo '>>> Set up "crashes/" directory to store crashes'
 mkdir crashes/
+mkdir cov/
 
 echo '>>> Set up ASAN configuration options'
-export ASAN_OPTIONS=handle_segv=0,abort_on_error=1
+export ASAN_OPTIONS=handle_segv=0,abort_on_error=1,coverage=:coverage_dir=/vagrant/cov
 # handle_segv=0     == allows user to set their own handler (needed for harness)
 # abort_on_error=1  == causes a SIGABRT upon ASAN error (needed for harness)
+export ASAN_SYMBOLIZER_PATH=/usr/local/bin/llvm-symbolizer-5.0
 
 echo '>>> Set up long-run killer (WARNING: Will kill all python processes every few seconds)'
 touch DELETE_THIS_TO_STOP_KILLER

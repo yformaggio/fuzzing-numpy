@@ -5,13 +5,29 @@
 # given to the VM. I would suggest 2048MB or more.
 
 # Install all requirements
+echo "# LLVM 5.0" | sudo tee -a /etc/apt/sources.list
+echo "deb http://apt.llvm.org/zesty/ llvm-toolchain-zesty main" | sudo tee -a /etc/apt/sources.list
+echo "deb-src http://apt.llvm.org/zesty/ llvm-toolchain-zesty main" | sudo tee -a /etc/apt/sources.list
+echo "# 3.9" | sudo tee -a /etc/apt/sources.list
+echo "deb http://apt.llvm.org/zesty/ llvm-toolchain-zesty-3.9 main" | sudo tee -a /etc/apt/sources.list
+echo "deb-src http://apt.llvm.org/zesty/ llvm-toolchain-zesty-3.9 main" | sudo tee -a /etc/apt/sources.list
+echo "# 4.0" | sudo tee -a /etc/apt/sources.list
+echo "deb http://apt.llvm.org/zesty/ llvm-toolchain-zesty-4.0 main" | sudo tee -a /etc/apt/sources.list
+echo "deb-src http://apt.llvm.org/zesty/ llvm-toolchain-zesty-4.0 main" | sudo tee -a /etc/apt/sources.list
+
+# Add apt.llvm.org key
+wget -O - http://apt.llvm.org/llvm-snapshot.gpg.key|sudo apt-key add -
+
 sudo apt-get update
-sudo apt-get install -y git make clang-3.5 realpath screen zlib1g-dev libssl-dev
-sudo apt-get build-dep -y python3.4
+sudo apt-get install -y git make realpath screen zlib1g-dev libssl-dev
+sudo apt-get build-dep -y python3
+
+# Install clang 5.0
+sudo apt-get -y install clang-5.0 lldb-5.0 lld-5.0 libfuzzer-5.0-dev
 
 # Ensure that the clang and clang++ executables point correctly
-sudo update-alternatives --install /usr/bin/clang clang $(which clang-3.5) 100
-sudo update-alternatives --install /usr/bin/clang++ clang++ $(which clang++-3.5) 100
+sudo update-alternatives --install /usr/bin/clang clang $(which clang-5.0) 100
+sudo update-alternatives --install /usr/bin/clang++ clang++ $(which clang++-5.0) 100
 
 # To prevent git from complaining
 export LC_CTYPE=en_US.UTF-8
@@ -26,6 +42,7 @@ cd ..
 # Set up symlink for crashes directory
 cd ~/fuzzing-numpy
 mkdir -p /vagrant/crashes
+mkdir -p /vagrant/cov
 ln -s /vagrant/crashes ./crashes
+ln -s /vagrant/cov ./cov
 cd ..
-
